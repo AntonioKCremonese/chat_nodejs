@@ -1,5 +1,6 @@
 const UserRepository = require('../repository/UserRepository');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.get = (req, res, next) => {
 
@@ -49,7 +50,10 @@ exports.post = (req, res, next) => {
             })
             res.status(200).send({user,token});
         })
-        .catch(err => res.status(500).send(err))
+        .catch(err => {
+            console.error(err)
+            res.status(500).send(err)
+        })
 };
 exports.put = (req, res, next) => {
     const p = req.body;

@@ -7,26 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login Chat</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Login</h1>
-    <form id="form">
-        Email: <input id="mail" name="mail" type="text" /><br />
-        Senha: <input id="password" name="password" type="password" /><br />
-        <button type="submit">Login</button>
-    </form>
-    <% if(message) { %>
-        <p>
-          <label style="color:Red"><%= message %></label>
-        </p>
-      <%}%>
-    <p>
-        <a href="/users/signup">Não possui cadastro?</a>
-    </p>
 
+    <form id="chat">
+        
+        <label>Email:</label> <input id="mail" name="mail" type="text"/>
+        <label>Senha:</label> <input id="password" name="password" type="password" />
+        <button type="submit">Login</button>
+        <p>
+            <a href="/signup">Não possui cadastro?</a>
+        </p>
+        <label id='error' style="color:red"></label>
+    </form>
+    
     <script>
-        $('#form').submit(function(event){
+        $('#chat').submit(function (event) {
             event.preventDefault();
 
             var user = {
@@ -35,32 +34,18 @@
             }
 
             $.ajax({
-                url:'http://localhost:3000/authenticate',
-                type:'post',
-                dataType:'json',
+                url: 'http://localhost:3000/authenticate',
+                type: 'get',
                 contentType: 'application/json',
-                success: function(data){
-                    //console.log(data)
-                    
-                    $.ajax({
-                        url:'http://localhost:3000/chat',
-                        type:'get',
-                        headers:{
-                            'Authorization':'Bearer '+data.token,
-                            'Content-Type':'application/json'
-                        },
-                        success: function(dados){
-                            window.location.href = 'http://localhost:3000/chat'
-                        },
-                    })
+                success: function (data) {
+                    $('body').html(data)
+
                 },
-                error: function(err){
-                    console.log(err.responseJSON);
+                error: function (err) {
+                    var {error} = err.responseJSON;
+                    $('#error').text(error);
                 },
-                beforeSend: function (xhr) {
-                    //xhr.setRequestHeader ("Authorization", "Bearer " + localStorage.getItem('token'));
-                },
-                data:JSON.stringify(user)
+                data: user
             });
         });
     </script>

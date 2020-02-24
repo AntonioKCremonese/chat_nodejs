@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat</title>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-
 <body>
+    
     <form id="chat">
-        <input id="user" type="text" name="username" placeholder="Usuário">
+        <input id="user" type="text" name="username" placeholder="Usuário" value="<%=author%>">
         <div class="messages"></div>
         <input id="message" type="text" name="message" placeholder="Digite sua mensagem">
         <button type="submit">Enviar</button>
     </form>
     <script type="text/javascript">
-        
-        $('#user').val(userId);
         var socket = io('http://localhost:3000');
         
         function renderMessage(msg){
@@ -55,5 +40,3 @@
         });
     </script>
 </body>
-
-</html>
