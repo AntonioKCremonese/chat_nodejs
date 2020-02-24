@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro de usuário</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Cadastro de usuário</h1>
+    <form id="form">
+        Nome: <input id="name" name="username" type="text" /><br />
+        Email: <input id="mail" name="mail" type="text" /><br />
+        Senha: <input id="password" name="password" type="password" /><br />
+        <button type="submit">Salvar</button>
+    </form>
+
+    <script>
+        $('#form').submit( function (event){
+            event.preventDefault();
+            var user = {
+                name: $('#name').val(),
+                mail: $('#mail').val(),
+                password: $('#password').val()
+            }
+            
+            $.ajax({
+                url:'http://localhost:3000/user',
+                type:'post',
+                dataType:'json',
+                contentType: 'application/json',
+                success: function(data){
+                    window.location = 'http://localhost:3000/login';
+                },
+                data:JSON.stringify(user)
+            });
+
+        });  
+    </script>
+</body>
+
+</html>
