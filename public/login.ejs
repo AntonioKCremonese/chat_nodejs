@@ -36,12 +36,12 @@
             $.ajax({
                 url: 'http://localhost:3000/authenticate',
                 type: 'get',
-                contentType: 'application/json',
                 success: function (data) {
                     $('body').html(data)
 
                 },
                 error: function (err) {
+                    console.log(err)
                     var {error} = err.responseJSON;
                     $('#error').text(error);
                 },

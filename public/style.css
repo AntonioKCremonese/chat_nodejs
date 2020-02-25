@@ -35,6 +35,7 @@ html, body {
     font-weight: bold;
     color: #FFF;
     margin-top: 10px;
+    cursor: pointer;
   }
   a,p{
     margin-top:5px;

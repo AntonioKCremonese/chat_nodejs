@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    container_name: app_chat
+    build: .
+    ports:
+      - "3000:3000"
+    command: npm run start
+    volumes:
+      - .:/usr/app
+    links:
+      - mongo
+  
+  mongo:
+    container_name: mongoDB_dev
+    image: mongo
+    ports:
+      - "27017:27017"

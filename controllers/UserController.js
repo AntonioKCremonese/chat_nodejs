@@ -1,5 +1,5 @@
 const UserRepository = require('../repository/UserRepository');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.get = (req, res, next) => {
@@ -10,6 +10,7 @@ exports.get = (req, res, next) => {
         }).catch(err => res.status(500).send(err))
 };
 exports.getById = (req, res, next) => {
+
     UserRepository.getById(req.params.id)
         .then(user => {
             res.status(200).send(user);
@@ -33,14 +34,16 @@ exports.login = (req, res, next) => {
         })
 };
 exports.post = (req, res, next) => {
-    const { name, password, mail } = req.body;
+    const { name, password, mail, endereco, celular } = req.body;
 
     const passEncrypt = bcrypt.hashSync(password, 8);
 
     const user = {
         name,
         password: passEncrypt,
-        mail: mail
+        mail: mail,
+        endereco,
+        celular
     }
     
     UserRepository.create(user)

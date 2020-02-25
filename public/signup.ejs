@@ -17,6 +17,8 @@
         Nome: <input id="name" name="username" type="text" /><br />
         Email: <input id="mail" name="mail" type="text" /><br />
         Senha: <input id="password" name="password" type="password" /><br />
+        Endereço: <input id="endereco" name="endereco" type="text" /><br />
+        Celular: <input id="celular" name="celular" type="text" /><br />
         <button type="submit">Salvar</button>
     </form>
 
@@ -26,7 +28,9 @@
             var user = {
                 name: $('#name').val(),
                 mail: $('#mail').val(),
-                password: $('#password').val()
+                password: $('#password').val(),
+                endereco: $('#endereco').val(),
+                celular: $('#celular').val()
             }
             
             $.ajax({
@@ -35,6 +39,11 @@
                 dataType:'json',
                 contentType: 'application/json',
                 success: function(data){
+                    $('#name').val()
+                    $('#mail').val()
+                    $('#password').val()
+                    $('#endereco').val()
+                    $('#celular').val()
                     window.location = 'http://localhost:3000/';
                 },
                 data:JSON.stringify(user)
